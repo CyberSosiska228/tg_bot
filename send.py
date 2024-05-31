@@ -20,10 +20,6 @@ sleep_time_from = 7 * 60 * 60
 sleep_time_to = 15 * 60 * 60
 rebuild_cnt = 14
 
-sleep_time_from = 10
-sleep_time_to = 15
-rebuild_cnt = 4
-
 
 def rebuild():
     try:
