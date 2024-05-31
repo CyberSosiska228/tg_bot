@@ -44,7 +44,7 @@ def get_queue(message):
         empty = True
 
     if (empty):
-        bot.send_message(message.from_user.id, "Queue is empty")
+        bot.send_message(message.from_user.id, "Queue is empty...")
         return
 
     lst = all_img.split()
@@ -69,6 +69,23 @@ def remove(message):
     bot.send_message(message.from_user.id, "Done...")
 
 
+def ping(message):
+    bot.send_message(message.from_user.id, "I am alive!")
+
+
+def next_send(message):
+    all_files = subprocess.check_output("ls", shell=True).decode()[:-1].split()
+    if ("next_time" not in all_files):
+        bot.send_message(message.from_user.id, "Error, try later...")
+        return
+
+    f = open("next_time", "r")
+    s = ""
+    for i in f.readlines():
+        s += i
+    f.close()
+    bot.send_message(message.from_user.id, s)
+
 
 @bot.message_handler(content_types=["photo"])
 def get_photo_messages(message):
@@ -80,6 +97,10 @@ def get_text_message(message):
         get_queue(message)
     elif (message.text[:4] == "/rm "):
         remove(message)
+    elif (message.text == "/ping"):
+        ping(message)
+    elif (message.text == "/next"):
+        next_send(message)
 
 while True:
     try:

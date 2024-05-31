@@ -54,5 +54,5 @@ while (True):
     print()
     s = str(time_now) + "\n" + "Wait:" + "\n" + f"Hours: {hours}\tMinutes: {minutes}\tSeconds: {seconds}"
     print(s)
-    os.system(f"echo \"{s}\" > out")
+    os.system(f"echo \"{s}\" > next_time")
     time.sleep(sleep_time)
