@@ -35,20 +35,21 @@ def download_files(message):
 
 def get_queue(message):
     empty = False
+    all_img = []
     try:
-        all_img = subprocess.check_output("ls log", shell=True).decode()
+        all_img = list(map(int, subprocess.check_output("ls log", shell=True).decode()[:-1].split()))
+        all_img.sort()
     except:
         empty = True
 
-    if (all_img == ""):
+    if (len(all_img) == 0):
         empty = True
 
     if (empty):
         bot.send_message(message.from_user.id, "Queue is empty...")
         return
 
-    lst = all_img.split()
-    for i in lst:
+    for i in all_img:
         bot.send_photo(message.from_user.id, photo=open(f"log/{i}", "rb"), caption=i)
 
 
